@@ -1,0 +1,15 @@
+/target/
+.metadata/.plugins/org.eclipse.jdt.core/assumedExternalFilesCache
+.metadata/.plugins/org.eclipse.jdt.core/externalFilesCache
+.metadata/.plugins/org.eclipse.jdt.core/invalidArchivesCache
+.metadata/.plugins/org.eclipse.jdt.core/nonChainingJarsCache
+.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat
+.metadata/.plugins/org.eclipse.jdt.ui/OpenTypeHistory.xml
+.metadata/.plugins/org.eclipse.jdt.ui/QualifiedTypeNameHistory.xml
+.metadata/.plugins/org.eclipse.m2e.core.ui/dialog_settings.xml
+.metadata/.plugins/org.eclipse.m2e.core/nexus/26522e0d83a422eed93329ece7565cfc/_0.cfs
+.metadata/.plugins/org.eclipse.m2e.core/nexus/26522e0d83a422eed93329ece7565cfc/segments_2
+.metadata/
+RemoteSystemsTempFiles/.project
+.settings/org.eclipse.wst.validation.prefs
+.settings/

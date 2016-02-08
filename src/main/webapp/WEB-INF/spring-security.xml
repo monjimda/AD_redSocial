@@ -1,0 +1,53 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+
+	<http auto-config="true">
+		<!-- LOS ROLES SON: ROLE_ADMINISTRADOR , ROLE_VALIDADOR , ROLE_CONSULTOR , ROLE_MANTENIMIENTO -->
+	
+		<!-- this services can be accessed without login -->
+		<!-- LOGIN -->
+		<intercept-url pattern="/api/login/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/api/imagen/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<!-- this services requires login -->
+		<!-- imagen -->
+		<intercept-url pattern="/api/imagen/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<!-- REFERENCIA -->
+		<intercept-url pattern="/api/referencia/**" access="ROLE_ADMINISTRADOR,ROLE_MANTENIMIENTO,ROLE_CONSULTOR,ROLE_VALIDADOR" method="GET"/>
+		<intercept-url pattern="/api/referencia/**" access="ROLE_ADMINISTRADOR,ROLE_MANTENIMIENTO" method="POST"/>
+		<intercept-url pattern="/api/referencia/**" access="ROLE_ADMINISTRADOR,ROLE_MANTENIMIENTO,ROLE_VALIDADOR" method="PUT"/>
+		<intercept-url pattern="/api/referencia/**" access="ROLE_ADMINISTRADOR,ROLE_MANTENIMIENTO" method="DELETE"/>
+		<!-- USUARIOS -->
+		<intercept-url pattern="/api/usuarios/**" access="ROLE_ADMINISTRADOR" method="GET"/>
+		<intercept-url pattern="/api/usuarios/**" access="ROLE_ADMINISTRADOR" method="POST"/>
+		<intercept-url pattern="/api/usuarios/**" access="ROLE_ADMINISTRADOR" method="PUT"/>
+		<intercept-url pattern="/api/usuarios/**" access="ROLE_ADMINISTRADOR" method="DELETE"/>
+        <!-- USUARIOSLDAP -->		
+        <intercept-url pattern="/api/usuariosldap/**" access="ROLE_ADMINISTRADOR" method="GET"/>
+		
+		<!-- CATALOGO -->
+		<intercept-url pattern="/api/catalogo/**" access="ROLE_ADMINISTRADOR,ROLE_MANTENIMIENTO,ROLE_VALIDADOR" method="GET"/>
+		<intercept-url pattern="/api/catalogo/**" access="ROLE_ADMINISTRADOR" method="PUT"/>
+		<!-- TECNOLOGIAS -->
+		<intercept-url pattern="/api/tecnologias/**" access="IS_AUTHENTICATED_ANONYMOUSLY" method="DELETE"/>
+		<intercept-url pattern="/api/tecnologias/**" access="IS_AUTHENTICATED_ANONYMOUSLY" method="POST"/>
+		<intercept-url pattern="/api/tecnologias/**" access="IS_AUTHENTICATED_ANONYMOUSLY" method="PUT"/>
+		<intercept-url pattern="/api/tecnologias/**" access="IS_AUTHENTICATED_ANONYMOUSLY" method="GET"/>
+		
+
+		<http-basic />
+		<!-- Service to logout -->
+		<logout logout-success-url="/logout" />
+
+	</http>
+
+
+	<authentication-manager>
+		<!-- Custom class to validate users. Can be replace for LDAP configuration -->
+		<authentication-provider ref="customAuthentication" />
+	</authentication-manager>
+
+</beans:beans>
