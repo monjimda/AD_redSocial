@@ -1,9 +1,7 @@
 package com.example.filters;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,6 @@ import org.springframework.security.web.authentication.switchuser.SwitchUserGran
 import org.springframework.stereotype.Component;
 
 import com.example.controllers.UsuarioController;
-import com.example.models.Usuario;
 
 @Component
 public class CustomAuthentication implements AuthenticationProvider {
@@ -39,11 +36,7 @@ public class CustomAuthentication implements AuthenticationProvider {
 		String rol = "";
 		try {
 			UsuarioController user = UsuarioController.getInstance();
-			Map<String,String> usuario = new HashMap<String,String>();
-			usuario.put("nick", name);
-			usuario.put("password", password);
-			Usuario usu = user.loginUserLdap(usuario);
-			rol = usu.getRole();
+			rol = user.loginUser(name, password);
 		} catch (Exception e) {
 			log.error("Authentication error: ", e);
 		}

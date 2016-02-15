@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import com.example.utils.InitDB;
+import com.example.utils.InitDB;
 
 
 /**
@@ -27,12 +27,10 @@ public class SwaggerFilter implements javax.servlet.Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		LOG.info("Init the filter");
 		try {
-//			InitDB.loadTecnologias();
-//			InitDB.loadResources();
-//			InitDB.loadUsers();
-//			InitDB.loadCatalogos();
+			InitDB.loadUsers();
 		} catch (Exception e) {
-			LOG.error("Error en la carga de datos:",e);
+			LOG.error("Error en la carga de datos");
+			e.printStackTrace();
 		}
 	}
 

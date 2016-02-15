@@ -5,22 +5,22 @@ import org.jongo.marshall.jackson.oid.Id;
 /**
  * The Class Usuario.
  */
-public class Usuario {
+public class User {
 	@Id
 	private String name;
 	private String role;
 	private String password;
 
-	public Usuario() {
+	public User() {
 	}
 
-	public Usuario(String name, String role, String password) {
+	public User(String name, String role, String password) {
 		this.name = name;
 		this.role = role;
 		this.password = password;
 	}
 
-	public Usuario(Usuario u) {
+	public User(User u) {
 		this.name = u.getName();
 		this.role = u.getRole();
 	}

@@ -19,16 +19,6 @@ public class Config {
 	public static final String BD_MONGO = "bd_mongo";
 	public static final String MONGO_USER = "mongo_user";
 	public static final String MONGO_PASS = "mongo_pass";
-	/** The Constant LDAP Active */
-	public static final String LDAP_ACTIVE = "ldap.active";
-	/** The Constant LDAP url. */
-	public static final String LDAP_URL = "ldap.serverURL";
-	/** The Constant LDAP User Dn Pattern. */
-	public static final String LDAP_USER_DN_PATTERN = "ldap.userDnPatterns";
-	/** The constant MAIL SEND MESSAGE */
-	public static final String MAIL_SEND_MESSAGE = "mail.send.message";
-	/** Direccion donde guardamos las imagenes*/
-	public static final String PATH_IMAGENES = "pathImagenes";
 
 	private Config() throws IOException {
 		String filename = "conf.properties";
