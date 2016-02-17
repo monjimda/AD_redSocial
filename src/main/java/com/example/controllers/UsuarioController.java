@@ -52,8 +52,11 @@ public class UsuarioController {
 	/**
 	 * Create new user
 	 */
-	public void createUser(String name, String role, String password) throws Exception {
-		dao.insertUser(new Usuario(name, role, this.makePasswordHash(password, this.generateSalting())));
+	public Usuario createUsuario(Usuario resource) throws Exception {
+		
+		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
+		dao.createUsuario(resource);
+		return resource;
 	}
 
 	/**

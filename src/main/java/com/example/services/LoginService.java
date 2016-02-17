@@ -33,13 +33,14 @@ public class LoginService {
 		try {
 			UsuarioController userController = UsuarioController.getInstance();
 			// Make login
-			String role = userController.loginUser(usuario.getName(), usuario.getPassword());
+			System.out.println(usuario);
+			String role = userController.loginUser(usuario.getNick(), usuario.getPassword());
 			// Take the role and insert into a map
 			HashMap<String, Object> outMap = new HashMap<String, Object>();
 			outMap.put("role", role);
 			out = outMap;
 			status = Response.Status.OK;
-			log.info("Login successful from user:" + usuario.getName());
+			log.info("Login successful from user:" + usuario.getNick());
 		} catch (Exception e) {
 			log.error("Error in login from user " + usuario.getName() + ": ", e);
 			out = new Message(e.getMessage());

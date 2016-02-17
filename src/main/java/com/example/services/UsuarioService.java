@@ -21,24 +21,24 @@ import com.wordnik.swagger.annotations.ApiParam;
 @Path("/usuario/")
 @Api(value = "/usuario", description = "Login operations")
 @Produces(MediaType.APPLICATION_JSON)
-public class UsuarioService {
+public class UsuarioService extends Service{
 
 	private static final Logger log = Logger.getLogger(LoginService.class.getName());
 
 	@POST
 	@ApiOperation(value = "creacion de usuarios", notes = "recibe un usuario y lo guarda en la BDD")
 	public Response postUsuario(Usuario resource) {
+		
 		try{
 			UsuarioController usuarioController = UsuarioController.getInstance();
-//			out = new Message(usuarioController.deleteUsuario(key));
-//			log.info("Delete usuario : Operation successful");
-//			status = Response.Status.ACCEPTED;
+		    out = usuarioController.createUsuario(resource);
+			log.info("Create user : Operation successful");
+			status = Response.Status.ACCEPTED;
 		}catch(Exception e){
-//			status = Response.Status.BAD_REQUEST;
-//			log.error("Error detected: ", e);
-//			out = new Message(e.getMessage());
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
 		}
-//		return Response.status(status).entity(out).build();
-		return null;
+		return Response.status(status).entity(out).build();
 	}
 }

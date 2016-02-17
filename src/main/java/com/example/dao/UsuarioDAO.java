@@ -10,7 +10,7 @@ public class UsuarioDAO {
 
 	private static UsuarioDAO singleton;
 	private static MongoCollection dao;
-	private static final String COLLECTION_NAME_MONGO = "users";
+	private static final String COLLECTION_NAME_MONGO = "usuarios";
 
 	private UsuarioDAO() throws Exception {
 		dao = DataBase.getInstance().getCollection(COLLECTION_NAME_MONGO);
@@ -31,7 +31,7 @@ public class UsuarioDAO {
 		return dao.findOne("{'_id':#}", idUser).as(Usuario.class);
 	}
 
-	public void insertUser(Usuario user) {
+	public void createUsuario(Usuario user) {
 		dao.insert(user);
 	}
 
