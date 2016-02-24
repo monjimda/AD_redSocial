@@ -16,6 +16,7 @@ public class Usuario {
 	private String name;
 	private String apellidos;
 	private String direccion;
+	private String email;
 	private String trabajo;
 	private String educacionInferior;
 	private String educacionSuperior;
@@ -86,6 +87,14 @@ public class Usuario {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getTrabajo() {

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.dao.UsuarioDAO;
 import com.example.models.Usuario;
@@ -70,6 +71,24 @@ public class UsuarioController {
 		}
 		return list;
 	}
+	
+	public Usuario updateUsuario(Usuario resource) throws Exception {
+		
+		if(resource.getNick().equals(SecurityContextHolder.getContext().getAuthentication().getName()) || resource.getRole().equals("ROLE_ADMIN")){
+			resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
+			dao.updateUsuario(resource);
+		}else{
+			throw new Exception("No puedes modificar ese usuario");
+		}
+		return resource;
+	}
+	
+	public Usuario getUsuario(String key) throws Exception {
+				
+		return 	dao.getUsuario(key);
+		
+	}
+	
 
 	// PRIVATE METHODS TO GENERATE PASSWORDS
 

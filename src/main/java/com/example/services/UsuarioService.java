@@ -2,12 +2,14 @@ package com.example.services;
 
 import java.util.HashMap;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
@@ -16,7 +18,7 @@ import com.example.models.Usuario;
 import com.example.utils.Message;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
+
 
 @Path("/usuario/")
 @Api(value = "/usuario", description = "Login operations")
@@ -33,6 +35,39 @@ public class UsuarioService extends Service{
 			UsuarioController usuarioController = UsuarioController.getInstance();
 		    out = usuarioController.createUsuario(resource);
 			log.info("Create user : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@PUT
+	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
+	public Response putUsuario(Usuario resource) {
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    out = usuarioController.updateUsuario(resource);
+			log.info("Update user : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@GET
+	@Path("/{key}")
+	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
+	public Response getUsuario(@PathParam("key")String key) {
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    out = usuarioController.getUsuario(key);
+			log.info("Get user : Operation successful");
 			status = Response.Status.ACCEPTED;
 		}catch(Exception e){
 			status = Response.Status.BAD_REQUEST;

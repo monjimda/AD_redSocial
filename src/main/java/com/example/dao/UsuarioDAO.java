@@ -34,6 +34,12 @@ public class UsuarioDAO {
 	public void createUsuario(Usuario user) {
 		dao.insert(user);
 	}
+	public void updateUsuario(Usuario user) {
+		dao.update("{_id:'"+user.getNick()+"'}").with(user);
+	}
+	public Usuario getUsuario(String key) {
+		return dao.findOne("{'_id':#}", key).as(Usuario.class);
+	}
 
 	public void clearStore() {
 		dao.drop();

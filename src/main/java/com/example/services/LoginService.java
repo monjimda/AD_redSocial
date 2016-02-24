@@ -33,7 +33,6 @@ public class LoginService {
 		try {
 			UsuarioController userController = UsuarioController.getInstance();
 			// Make login
-			System.out.println(usuario);
 			String role = userController.loginUser(usuario.getNick(), usuario.getPassword());
 			// Take the role and insert into a map
 			HashMap<String, Object> outMap = new HashMap<String, Object>();
