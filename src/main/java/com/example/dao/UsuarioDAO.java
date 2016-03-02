@@ -37,6 +37,9 @@ public class UsuarioDAO {
 	public void updateUsuario(Usuario user) {
 		dao.update("{_id:'"+user.getNick()+"'}").with(user);
 	}
+	public void deleteUsuario(String idUser) {
+		dao.remove("{_id:'"+idUser+"'}");
+	}
 	public Usuario getUsuario(String key) {
 		return dao.findOne("{'_id':#}", key).as(Usuario.class);
 	}

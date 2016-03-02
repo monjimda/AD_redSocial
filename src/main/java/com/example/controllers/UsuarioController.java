@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.codec.binary.Base64;
@@ -81,6 +82,18 @@ public class UsuarioController {
 			throw new Exception("No puedes modificar ese usuario");
 		}
 		return resource;
+	}
+	
+	public String deleteUsuario(Map<String,String> datos) throws Exception {
+		
+		String idUser = datos.get("nick");
+		String autor = datos.get("autor");
+		if(idUser.equals(SecurityContextHolder.getContext().getAuthentication().getName()) || dao.getUsuario(autor).getRole().equals("ROLE_ADMIN")){
+			dao.deleteUsuario(idUser);
+		}else{
+			throw new Exception("No puedes borrar ese usuario");
+		}
+		return idUser;
 	}
 	
 	public Usuario getUsuario(String key) throws Exception {

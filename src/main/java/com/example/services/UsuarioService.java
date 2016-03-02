@@ -1,7 +1,9 @@
 package com.example.services;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -68,6 +70,23 @@ public class UsuarioService extends Service{
 			UsuarioController usuarioController = UsuarioController.getInstance();
 		    out = usuarioController.getUsuario(key);
 			log.info("Get user : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@DELETE
+	@Path("/{key}")
+	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
+	public Response deleteUsuario(@PathParam("key")Map<String,String> datos) {
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    out = usuarioController.deleteUsuario(datos);
+			log.info("delete user : Operation successful");
 			status = Response.Status.ACCEPTED;
 		}catch(Exception e){
 			status = Response.Status.BAD_REQUEST;
