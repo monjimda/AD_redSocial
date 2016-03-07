@@ -79,9 +79,8 @@ public class UsuarioService extends Service{
 		return Response.status(status).entity(out).build();
 	}
 	@DELETE
-	@Path("/{key}")
 	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
-	public Response deleteUsuario(@PathParam("key")Map<String,String> datos) {
+	public Response deleteUsuario(Map<String,String> datos) {
 		
 		try{
 			UsuarioController usuarioController = UsuarioController.getInstance();
