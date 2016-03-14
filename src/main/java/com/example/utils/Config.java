@@ -19,6 +19,7 @@ public class Config {
 	public static final String BD_MONGO = "bd_mongo";
 	public static final String MONGO_USER = "mongo_user";
 	public static final String MONGO_PASS = "mongo_pass";
+	public static final String PATH_IMAGENES = "pathImagenes";
 
 	private Config() throws IOException {
 		String filename = "conf.properties";

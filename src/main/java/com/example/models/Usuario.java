@@ -173,13 +173,15 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [nick=" + nick + ", password=" + password + ", role="
 				+ role + ", name=" + name + ", apellidos=" + apellidos
-				+ ", direccion=" + direccion + ", trabajo=" + trabajo
-				+ ", educacionInferior=" + educacionInferior
-				+ ", educacionSuperior=" + educacionSuperior + ", carrera="
-				+ carrera + ", fechaCumpleaños=" + fechaCumpleaños
-				+ ", ciudad=" + ciudad + ", amigos=" + Arrays.toString(amigos)
-				+ ", amigosPendientes=" + Arrays.toString(amigosPendientes)
-				+ ", fotos=" + Arrays.toString(fotos) + "]";
+				+ ", direccion=" + direccion + ", email=" + email
+				+ ", trabajo=" + trabajo + ", educacionInferior="
+				+ educacionInferior + ", educacionSuperior="
+				+ educacionSuperior + ", carrera=" + carrera
+				+ ", fechaCumpleaños=" + fechaCumpleaños + ", ciudad=" + ciudad
+				+ ", amigos=" + Arrays.toString(amigos) + ", amigosPendientes="
+				+ Arrays.toString(amigosPendientes) + ", fotos="
+				+ Arrays.toString(fotos) + "]";
 	}
 
+	
 }

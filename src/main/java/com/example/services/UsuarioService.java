@@ -1,6 +1,5 @@
 package com.example.services;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.DELETE;
@@ -86,6 +85,58 @@ public class UsuarioService extends Service{
 			UsuarioController usuarioController = UsuarioController.getInstance();
 		    out = usuarioController.deleteUsuario(datos);
 			log.info("delete user : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@POST
+	@Path("/imagenes/")
+	@ApiOperation(value = "Buscador de referencias", notes = "")
+	public Response SubirImagen(Map<String,Object> datosImagen){
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    usuarioController.aniadirImagen(datosImagen);
+		    out = new Message("Imagen insertada");
+			log.info("Insert imagen : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@GET
+	@Path("/imagenes/")
+	@ApiOperation(value = "Buscador de referencias", notes = "")
+	public Response imagenesUsuario(){
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    out = usuarioController.cogerImagenes();
+			log.info("Coger imagenes : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@DELETE
+	@Path("/imagenes/")
+	@ApiOperation(value = "Buscador de referencias", notes = "")
+	public Response deleteImagen(String key){
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    out = usuarioController.BorrarImagen(key);
+			log.info("Coger imagenes : Operation successful");
 			status = Response.Status.ACCEPTED;
 		}catch(Exception e){
 			status = Response.Status.BAD_REQUEST;
