@@ -135,7 +135,8 @@ public class UsuarioService extends Service{
 		
 		try{
 			UsuarioController usuarioController = UsuarioController.getInstance();
-		    out = usuarioController.BorrarImagen(key);
+		    usuarioController.borrarImagen(key);
+		    out = new Message("Imagen borrada");
 			log.info("Coger imagenes : Operation successful");
 			status = Response.Status.ACCEPTED;
 		}catch(Exception e){

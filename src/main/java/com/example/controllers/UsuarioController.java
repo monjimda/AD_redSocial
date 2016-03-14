@@ -171,20 +171,22 @@ public class UsuarioController {
 			
 			throw new Exception("Error en la escritura de la imagen:"+e.getMessage());
 		}
-		
-		try{
+	
+			try{
 			
-			Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			String[] imagenes = modListImagenes.getFotos();
-			imagenes[imagenes.length] = nFichero;
-			modListImagenes.setFotos(imagenes);
-			dao.updateUsuario(modListImagenes);
+				Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+				String[] imagenes = modListImagenes.getFotos();
+				List<String> listImagenes = Arrays.asList(imagenes);
+				if(!listImagenes.contains("perfil")){
+					imagenes[imagenes.length] = nFichero;
+					modListImagenes.setFotos(imagenes);
+					dao.updateUsuario(modListImagenes);
+				}
 			
-		}catch(Exception e){
+			}catch(Exception e){
 			
 			throw new Exception("Error al guardar la imagen en disco: "+ e.getMessage());
-		}
-		
+			}
 		System.out.println("chupipupipopi");
 		
 		
