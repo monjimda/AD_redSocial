@@ -21,7 +21,7 @@ public class Usuario {
 	private String educacionInferior;
 	private String educacionSuperior;
 	private String carrera;
-	private String fechaCumpleaños;
+	private String fechaCumpleanios;
 	private String ciudad;
 	private String[] amigos;
 	private String[] amigosPendientes;
@@ -129,12 +129,12 @@ public class Usuario {
 		this.carrera = carrera;
 	}
 
-	public String getFechaCumpleaños() {
-		return fechaCumpleaños;
+	public String getFechaCumpleanios() {
+		return fechaCumpleanios;
 	}
 
-	public void setFechaCumpleaños(String fechaCumpleaños) {
-		this.fechaCumpleaños = fechaCumpleaños;
+	public void setFechaCumpleanios(String fechaCumpleanios) {
+		this.fechaCumpleanios = fechaCumpleanios;
 	}
 
 	public String getCiudad() {
@@ -177,7 +177,7 @@ public class Usuario {
 				+ ", trabajo=" + trabajo + ", educacionInferior="
 				+ educacionInferior + ", educacionSuperior="
 				+ educacionSuperior + ", carrera=" + carrera
-				+ ", fechaCumpleaños=" + fechaCumpleaños + ", ciudad=" + ciudad
+				+ ", fechaCumpleaños=" + fechaCumpleanios + ", ciudad=" + ciudad
 				+ ", amigos=" + Arrays.toString(amigos) + ", amigosPendientes="
 				+ Arrays.toString(amigosPendientes) + ", fotos="
 				+ Arrays.toString(fotos) + "]";
