@@ -84,27 +84,27 @@ public class UsuarioController {
 		return list;
 	}
 	
-	public Usuario updateUsuario(Usuario resource) throws Exception {
+	public List<String> updateUsuario(List<String> resource) throws Exception {
 		
-		if(resource.getNick().equals(SecurityContextHolder.getContext().getAuthentication().getName()) || resource.getRole().equals("ROLE_ADMIN")){
-			resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
-			dao.updateUsuario(resource);
-		}else{
-			throw new Exception("No puedes modificar ese usuario");
-		}
+//		if(resource.getNick().equals(SecurityContextHolder.getContext().getAuthentication().getName()) || resource.getRole().equals("ROLE_ADMIN")){
+//			resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
+//			dao.updateUsuario(resource);
+//		}else{
+//			throw new Exception("No puedes modificar ese usuario");
+//		}
 		return resource;
 	}
 	
-	public String deleteUsuario(Map<String,String> datos) throws Exception {
+	public String deleteUsuario(String datos) throws Exception {
 		
-		String idUser = datos.get("nick");
-		String autor = datos.get("autor");
-		if(idUser.equals(SecurityContextHolder.getContext().getAuthentication().getName()) || dao.getUsuario(autor).getRole().equals("ROLE_ADMIN")){
-			dao.deleteUsuario(idUser);
-		}else{
-			throw new Exception("No puedes borrar ese usuario");
-		}
-		return idUser;
+//		String idUser = datos.get("nick");
+//		String autor = datos.get("autor");
+//		if(idUser.equals(SecurityContextHolder.getContext().getAuthentication().getName()) || dao.getUsuario(autor).getRole().equals("ROLE_ADMIN")){
+//			dao.deleteUsuario(idUser);
+//		}else{
+//			throw new Exception("No puedes borrar ese usuario");
+//		}
+		return datos;
 	}
 	
 	public Usuario getUsuario(String key) throws Exception {

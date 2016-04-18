@@ -21,8 +21,8 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
 
-@Path("/usuario/")
-@Api(value = "/usuario", description = "Login operations")
+@Path("/usuarios/")
+@Api(value = "/usuarios", description = "Login operations")
 @Produces(MediaType.APPLICATION_JSON)
 public class UsuarioService extends Service{
 
