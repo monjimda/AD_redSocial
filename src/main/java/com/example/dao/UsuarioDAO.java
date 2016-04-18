@@ -33,6 +33,7 @@ public class UsuarioDAO {
 
 	public void createUsuario(Usuario user) {
 		dao.insert(user);
+		System.out.println(getUsers().toString());
 	}
 	public void updateUsuario(Usuario user) {
 		dao.update("{_id:'"+user.getNick()+"'}").with(user);
