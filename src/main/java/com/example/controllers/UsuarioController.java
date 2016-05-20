@@ -71,18 +71,6 @@ public class UsuarioController {
 		dao.createUsuario(resource);
 		return resource;
 	}
-
-	/**
-	 * Get all users
-	 */
-	public List<Usuario> getUsers() throws Exception {
-		List<Usuario> list = new ArrayList<Usuario>();
-		Iterator<Usuario> i = dao.getUsers();
-		while (i.hasNext()) {
-			list.add(i.next());
-		}
-		return list;
-	}
 	
 	public Usuario updateUsuario(Usuario resource) throws Exception {
 		
@@ -244,7 +232,13 @@ public class UsuarioController {
 	}
 
 	public List<Usuario> getUsuarios() throws Exception {
-		return getUsers();
+		
+		List<Usuario> list = new ArrayList<Usuario>();
+		Iterator<Usuario> i = dao.getUsers();
+		while (i.hasNext()) {
+			list.add(i.next());
+		}
+		return list;
 	}
 
 }
