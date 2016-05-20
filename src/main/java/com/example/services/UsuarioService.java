@@ -61,6 +61,22 @@ public class UsuarioService extends Service{
 		return Response.status(status).entity(out).build();
 	}
 	@GET
+	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
+	public Response getUsuarios() {
+		
+		try{
+			UsuarioController usuarioController = UsuarioController.getInstance();
+		    out = usuarioController.getUsuarios();
+			log.info("Get user : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
+	@GET
 	@Path("/{key}")
 	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
 	public Response getUsuario(@PathParam("key")String key) {

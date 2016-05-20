@@ -243,4 +243,8 @@ public class UsuarioController {
 		
 	}
 
+	public List<Usuario> getUsuarios() throws Exception {
+		return getUsers();
+	}
+
 }
