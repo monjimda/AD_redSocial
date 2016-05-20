@@ -20,7 +20,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.example.dao.AmigosDAO;
 import com.example.dao.UsuarioDAO;
 import com.example.models.Usuario;
 import com.example.utils.Config;
@@ -28,11 +27,11 @@ import com.example.utils.Config;
 public class AmigosController {
 
 	// Singleton instances
-		private AmigosDAO dao;
+		private UsuarioDAO dao;
 		private static AmigosController singleton;
 
 		private AmigosController() throws Exception {
-			dao = AmigosDAO.getInstance();
+			dao = UsuarioDAO.getInstance();
 		}
 
 		public static AmigosController getInstance() throws Exception {
@@ -49,49 +48,46 @@ public class AmigosController {
 			String[] amigosPendientesUser = user.getAmigosPendientes();
 			amigosPendientesUser[user.getAmigosPendientes().length] = SecurityContextHolder.getContext().getAuthentication().getName();
 			user.setAmigosPendientes(amigosPendientesUser);
+			dao.updateUsuario(user);
+			return user;
+		}
+		
+		public Usuario createAmistad(String idUsuario) throws Exception {
+			
+			Usuario user = dao.getUser(idUsuario);
+			Usuario user2 = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+			singleton.deleteAmigoPendiente(idUsuario);
+			user.setAmigos( Arrays.asList(user.getAmigos()).add(SecurityContextHolder.getContext().getAuthentication().getName()) );
+			String[] amigosPendientesUser = user.getAmigosPendientes();
+			amigosPendientesUser[user.getAmigosPendientes().length] = SecurityContextHolder.getContext().getAuthentication().getName();
+			user.setAmigosPendientes(amigosPendientesUser);
+			dao.updateUsuario(user);
 			return user;
 		}
 
 		/**
 		 * Get all users
 		 */
-		public List<Usuario> getUsers() throws Exception {
-			List<Usuario> list = new ArrayList<Usuario>();
-			Iterator<Usuario> i = dao.getUsers();
-			while (i.hasNext()) {
-				list.add(i.next());
-			}
+		public String[] getAmigosPendientes() throws Exception {
+			String[] list = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName()).getAmigosPendientes();
 			return list;
 		}
 		
-		public Usuario updateUsuario(Usuario resource) throws Exception {
+		public List<String> updateAmigosPendientes(List<String> amigos) throws Exception {
 			
-			if(resource.getNick().equals(SecurityContextHolder.getContext().getAuthentication().getName()) || resource.getRole().equals("ROLE_ADMIN")){
-//				resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
-				dao.updateUsuario(resource);
-			}else{
-				throw new Exception("No puedes modificar ese usuario");
-			}
-			return resource;
+			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+			user.setAmigos((String[]) amigos.toArray());
+			dao.updateUsuario(user);
+			return amigos;
 		}
-		
-		public String deleteUsuario(Map<String,String> datos) throws Exception {
+		public String deleteAmigoPendiente(String id) throws Exception {
 			
-			String idUser = datos.get("nick");
-			String autor = datos.get("autor");
-			if(idUser.equals(SecurityContextHolder.getContext().getAuthentication().getName()) || dao.getUsuario(autor).getRole().equals("ROLE_ADMIN")){
-				dao.deleteUsuario(idUser);
-			}else{
-				throw new Exception("No puedes borrar ese usuario");
-			}
-			return idUser;
+			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+			List<String> amigosPendientes = Arrays.asList(user.getAmigosPendientes());
+			amigosPendientes.remove(id);
+			user.setAmigos((String[]) amigosPendientes.toArray());
+			dao.updateUsuario(user);
+			return id;
 		}
-		
-		public Usuario getUsuario(String key) throws Exception {
-					
-			return 	dao.getUsuario(key);
-			
-		}
-	
 
 }
