@@ -67,6 +67,11 @@ public class UsuarioController {
 	 */
 	public Usuario createUsuario(Usuario resource) throws Exception {
 		
+		byte[] imagenByte = null;
+		File archivo = null;
+		imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/perfilPorDefecto.png"));
+		archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/perfil.png");
+		FileUtils.writeByteArrayToFile(archivo,imagenByte);
 		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
 		dao.createUsuario(resource);
 		return resource;
@@ -184,15 +189,15 @@ public class UsuarioController {
 		Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
 		String[] imagenes = modListImagenes.getFotos();
 		for(int i=0;i<imagenes.length;i++){
-			
+			/*
 			byte[] imagenByte = null;
 			try{
 			imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+imagenes[i]+".png"));
 			}catch(Exception e){
 			imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"error.png"));	
 			}
-			imagenes[i] = DatatypeConverter.printBase64Binary(imagenByte);
-			
+			imagenes[i] = DatatypeConverter.printBase64Binary(imagenByte);*/
+			imagenes[i] = Config.getInstance().getProperty(Config.PATH_IMAGENES) + imagenes[i] + ".png";
 		}
 		
 		return imagenes;
