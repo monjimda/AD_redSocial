@@ -74,6 +74,9 @@ public class UsuarioController {
 		imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/perfilPorDefecto.png"));
 		archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+resource.getNick()+"/perfil.png");
 		FileUtils.writeByteArrayToFile(archivo,imagenByte);
+		String[] fotos = null;
+		fotos[0] = "perfil";
+		resource.setFotos(fotos);
 		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
 		dao.createUsuario(resource);
 		return resource;
@@ -199,7 +202,7 @@ public class UsuarioController {
 			imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"error.png"));	
 			}
 			imagenes[i] = DatatypeConverter.printBase64Binary(imagenByte);*/
-			imagenes[i] = Config.getInstance().getProperty(Config.PATH_IMAGENES) + imagenes[i] + ".png";
+			imagenes[i] = Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/" + imagenes[i] + ".png";
 		}
 		
 		return imagenes;
