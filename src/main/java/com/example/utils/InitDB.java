@@ -19,8 +19,6 @@ public class InitDB {
 		UsuarioController controller = UsuarioController.getInstance();
 		Usuario carga = new Usuario("a", "ROLE_USER", "a");
 		controller.createUsuario(carga);
-		carga = new Usuario("a", "ROLE_USER", "a");
-		controller.createUsuario(carga);
 		carga = new Usuario("b", "ROLE_USER", "b");
 		controller.createUsuario(carga);
 		carga = new Usuario("c", "ROLE_USER", "c");
