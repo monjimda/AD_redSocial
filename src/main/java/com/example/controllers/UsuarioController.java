@@ -69,8 +69,10 @@ public class UsuarioController {
 		
 		byte[] imagenByte = null;
 		File archivo = null;
+		File directorio = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+resource.getNick());
+		directorio.mkdirs();
 		imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/perfilPorDefecto.png"));
-		archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/perfil.png");
+		archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+resource.getNick()+"/perfil.png");
 		FileUtils.writeByteArrayToFile(archivo,imagenByte);
 		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
 		dao.createUsuario(resource);
