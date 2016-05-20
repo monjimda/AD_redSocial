@@ -74,9 +74,9 @@ public class UsuarioController {
 		imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/perfilPorDefecto.png"));
 		archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+resource.getNick()+"/perfil.png");
 		FileUtils.writeByteArrayToFile(archivo,imagenByte);
-		String[] fotos = null;
-		fotos[0] = "perfil";
-		resource.setFotos(fotos);
+		List fotos = new ArrayList<String>();
+		fotos.add("perfil");
+		resource.setFotos((String[]) fotos.toArray());
 		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
 		dao.createUsuario(resource);
 		return resource;
