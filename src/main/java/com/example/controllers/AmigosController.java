@@ -109,9 +109,11 @@ public class AmigosController {
 		public int getEsAmigo(String idUsuario) {
 			
 			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			if(user.getAmigos()==null||user.getAmigos().contains(idUsuario)){
+			if(user.getAmigos()==null && user.getAmigosPendientes()==null){
+			return 0;
+			}else if(user.getAmigos()!=null && user.getAmigos().contains(idUsuario)){
 			return 2;
-			}else if(user.getAmigosPendientes().contains(idUsuario)){
+			}else if(user.getAmigosPendientes()!=null && user.getAmigosPendientes().contains(idUsuario)){
 			return 1;
 			}
 			return 0;
