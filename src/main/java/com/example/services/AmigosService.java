@@ -62,6 +62,23 @@ public class AmigosService extends Service{
 		}
 		return Response.status(status).entity(out).build();
 	}
+	@GET
+	@Path("/{key}/")
+	@ApiOperation(value = "actualizar usuario", notes = "recibe un usuario modificado")
+	public Response getAmigosPendientes(@PathParam("key")String idUsuario) {
+		
+		try{
+			AmigosController amigosController = AmigosController.getInstance();
+		    out = amigosController.getAmigo(idUsuario);
+			log.info("Get lista amigos : Operation successful");
+			status = Response.Status.ACCEPTED;
+		}catch(Exception e){
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
 	@PUT
 	@Path("/pendientes/")
 	@ApiOperation(value = "actualizar lista amigos", notes = "recibe un usuario modificado")

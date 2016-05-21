@@ -45,49 +45,76 @@ public class AmigosController {
 		public Usuario createPeticionAmistad(String idUsuario) throws Exception {
 			
 			Usuario user = dao.getUser(idUsuario);
-			String[] amigosPendientesUser = user.getAmigosPendientes();
-			amigosPendientesUser[user.getAmigosPendientes().length] = SecurityContextHolder.getContext().getAuthentication().getName();
+			List<String> amigosPendientesUser = user.getAmigosPendientes();
+			amigosPendientesUser.add(SecurityContextHolder.getContext().getAuthentication().getName());
 			user.setAmigosPendientes(amigosPendientesUser);
 			dao.updateUsuario(user);
 			return user;
 		}
 		
-		public Usuario createAmistad(String idUsuario) throws Exception {
+		public boolean createAmistad(String idUsuario) throws Exception {
 			
 			Usuario user = dao.getUser(idUsuario);
 			Usuario user2 = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			singleton.deleteAmigoPendiente(idUsuario);
-			user.setAmigos( Arrays.asList(user.getAmigos()).add(SecurityContextHolder.getContext().getAuthentication().getName()) );
-			String[] amigosPendientesUser = user.getAmigosPendientes();
-			amigosPendientesUser[user.getAmigosPendientes().length] = SecurityContextHolder.getContext().getAuthentication().getName();
-			user.setAmigosPendientes(amigosPendientesUser);
+			List<String> amigosPendientes = user2.getAmigosPendientes();
+			amigosPendientes.remove(idUsuario);
+			user2.setAmigosPendientes(amigosPendientes);
+			List<String> amigos = user2.getAmigos();
+			amigos.add(idUsuario);
+			user2.setAmigos(amigos);
+			dao.updateUsuario(user2);
+			
+			amigos = user.getAmigos();
+			amigos.add(idUsuario);
+			user.setAmigos(amigos);
 			dao.updateUsuario(user);
-			return user;
+			
+			return true;
 		}
 
 		/**
 		 * Get all users
 		 */
-		public String[] getAmigosPendientes() throws Exception {
-			String[] list = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName()).getAmigosPendientes();
+		public List<String> getAmigosPendientes() throws Exception {
+			List<String> list = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName()).getAmigosPendientes();
 			return list;
 		}
 		
 		public List<String> updateAmigosPendientes(List<String> amigos) throws Exception {
 			
 			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			user.setAmigos((String[]) amigos.toArray());
+			user.setAmigos(amigos);
 			dao.updateUsuario(user);
 			return amigos;
 		}
 		public String deleteAmigoPendiente(String id) throws Exception {
 			
 			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			List<String> amigosPendientes = Arrays.asList(user.getAmigosPendientes());
+			List<String> amigosPendientes = user.getAmigosPendientes();
 			amigosPendientes.remove(id);
-			user.setAmigos((String[]) amigosPendientes.toArray());
+			user.setAmigos(amigosPendientes);
 			dao.updateUsuario(user);
 			return id;
+		}
+
+		public Usuario getAmigo(String idUsuario) {
+			
+			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+			if(user.getAmigos().contains(idUsuario) || user.getRole().equals("ROLE_ADMIN")){
+			return dao.getUser(idUsuario);
+			}
+			return null;
+		}
+
+		public int getEsAmigo(String idUsuario) {
+			
+			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+			if(user.getAmigos().contains(idUsuario)){
+			return 2;
+			}else if(user.getAmigosPendientes().contains(idUsuario)){
+			return 1;
+			}
+			return 0;
 		}
 
 }
