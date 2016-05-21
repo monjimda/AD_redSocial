@@ -100,7 +100,7 @@ public class AmigosController {
 		public Usuario getAmigo(String idUsuario) {
 			
 			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			if(user.getAmigos()!=null||user.getAmigos().contains(idUsuario) || user.getRole().equals("ROLE_ADMIN")){
+			if((user.getAmigos()!=null && user.getAmigos().contains(idUsuario)) || user.getRole().equals("ROLE_ADMIN")){
 			return dao.getUser(idUsuario);
 			}
 			return null;
