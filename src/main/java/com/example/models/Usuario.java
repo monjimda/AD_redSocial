@@ -1,5 +1,6 @@
 package com.example.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,17 +30,23 @@ public class Usuario {
 	private List<String> fotos;
 
 	public Usuario() {
+		amigos = new ArrayList<String>();
+		amigosPendientes = new ArrayList<String>();
 	}
 
 	public Usuario(String nick, String role, String password) {
 		this.nick = nick;
 		this.role = role;
 		this.password = password;
+		amigos = new ArrayList<String>();
+		amigosPendientes = new ArrayList<String>();
 	}
 
 	public Usuario(Usuario u) {
 		this.name = u.getName();
 		this.role = u.getRole();
+		amigos = new ArrayList<String>();
+		amigosPendientes = new ArrayList<String>();
 	}
 
 	public String getNick() {
