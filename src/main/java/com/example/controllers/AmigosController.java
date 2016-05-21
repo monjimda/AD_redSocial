@@ -45,10 +45,13 @@ public class AmigosController {
 		public Usuario createPeticionAmistad(String idUsuario) throws Exception {
 			
 			Usuario user = dao.getUser(idUsuario);
+			System.out.println(user);
 			List<String> amigosPendientesUser = user.getAmigosPendientes();
 			amigosPendientesUser.add(SecurityContextHolder.getContext().getAuthentication().getName());
 			user.setAmigosPendientes(amigosPendientesUser);
 			dao.updateUsuario(user);
+			user = dao.getUser(idUsuario);
+			System.out.println(user);
 			return user;
 		}
 		
@@ -108,12 +111,12 @@ public class AmigosController {
 
 		public int getEsAmigo(String idUsuario) {
 			
-			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+			Usuario user = dao.getUser(idUsuario);
 			if(user.getAmigos()==null && user.getAmigosPendientes()==null){
 			return 0;
 			}else if(user.getAmigos()!=null && user.getAmigos().contains(idUsuario)){
 			return 2;
-			}else if(user.getAmigosPendientes()!=null && user.getAmigosPendientes().contains(idUsuario)){
+			}else if(user.getAmigosPendientes()!=null && user.getAmigosPendientes().contains(SecurityContextHolder.getContext().getAuthentication().getName())){
 			return 1;
 			}
 			return 0;
