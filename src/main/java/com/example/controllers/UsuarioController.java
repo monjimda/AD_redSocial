@@ -157,10 +157,12 @@ public class UsuarioController {
 			File archivo = null;
 			if(perfil){
 				archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/perfil.png");
+				nFichero ="perfil";
 			}
 			else{
 				nFichero = actual.toString().replaceAll(":", "-");
-				archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/"+nFichero+".png");	
+				archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/"+nFichero+".png");
+				
 			}
 			FileUtils.writeByteArrayToFile(archivo,imagenByte);
 			
@@ -174,7 +176,7 @@ public class UsuarioController {
 			
 				Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
 				List<String> listImagenes = modListImagenes.getFotos();
-				if(!listImagenes.contains("perfil")){
+				if(!listImagenes.contains("perfil")||!nFichero.equals("perfil")){
 					listImagenes.add(nFichero);
 					modListImagenes.setFotos(listImagenes);
 					dao.updateUsuario(modListImagenes);
