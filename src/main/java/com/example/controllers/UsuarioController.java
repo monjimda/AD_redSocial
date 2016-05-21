@@ -74,8 +74,8 @@ public class UsuarioController {
 		imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/perfilPorDefecto.png"));
 		archivo = new File(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+resource.getNick()+"/perfil.png");
 		FileUtils.writeByteArrayToFile(archivo,imagenByte);
-		String[] fotos = new String[100];
-		fotos[0] ="perfil";
+		List<String> fotos = new ArrayList<String>();
+		fotos.add("perfil");
 		resource.setFotos(fotos);
 		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
 		dao.createUsuario(resource);
@@ -173,11 +173,10 @@ public class UsuarioController {
 			try{
 			
 				Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-				String[] imagenes = modListImagenes.getFotos();
-				List<String> listImagenes = Arrays.asList(imagenes);
+				List<String> listImagenes = modListImagenes.getFotos();
 				if(!listImagenes.contains("perfil")){
-					imagenes[imagenes.length] = nFichero;
-					modListImagenes.setFotos(imagenes);
+					listImagenes.add(nFichero);
+					modListImagenes.setFotos(listImagenes);
 					dao.updateUsuario(modListImagenes);
 				}
 			
@@ -189,11 +188,15 @@ public class UsuarioController {
 		
 		
 	}
-	public String[] cogerImagenes() throws IOException {
+	public List<String> cogerImagenes() throws IOException {
 		
 		Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-		String[] imagenes = modListImagenes.getFotos();
-		for(int i=0;i<imagenes.length;i++){
+		List<String> imagenes = modListImagenes.getFotos();
+		List<String> respuestaImagenes = new ArrayList<String>();
+		Iterator<String> iteradorImagenes = imagenes.iterator();
+		while(iteradorImagenes.hasNext()){
+			String  respuesta = iteradorImagenes.next();
+			respuestaImagenes.add(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/" + respuesta + ".png");
 			/*
 			byte[] imagenByte = null;
 			try{
@@ -202,10 +205,10 @@ public class UsuarioController {
 			imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"error.png"));	
 			}
 			imagenes[i] = DatatypeConverter.printBase64Binary(imagenByte);*/
-			imagenes[i] = Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/" + imagenes[i] + ".png";
+			//imagenes[i] = Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/" + imagenes[i] + ".png";
 		}
 		
-		return imagenes;
+		return respuestaImagenes;
 		
 	}
 	
@@ -214,11 +217,9 @@ public class UsuarioController {
 		try{
 			
 			Usuario modListImagenes = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
-			String[] imagenes = modListImagenes.getFotos();
-			List<String> listImagenes = Arrays.asList(imagenes);
+			List<String> listImagenes = modListImagenes.getFotos();
 			listImagenes.remove(key);
-			imagenes = (String[]) listImagenes.toArray();
-			modListImagenes.setFotos(imagenes);
+			modListImagenes.setFotos(listImagenes);
 			dao.updateUsuario(modListImagenes);
 			
 		}catch(Exception e){

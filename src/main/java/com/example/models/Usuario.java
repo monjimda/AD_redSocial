@@ -1,6 +1,7 @@
 package com.example.models;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.jongo.marshall.jackson.oid.Id;
 
@@ -23,9 +24,9 @@ public class Usuario {
 	private String carrera;
 	private String fechaCumpleanios;
 	private String ciudad;
-	private String[] amigos;
-	private String[] amigosPendientes;
-	private String[] fotos;
+	private List<String> amigos;
+	private List<String> amigosPendientes;
+	private List<String> fotos;
 
 	public Usuario() {
 	}
@@ -145,27 +146,27 @@ public class Usuario {
 		this.ciudad = ciudad;
 	}
 
-	public String[] getAmigos() {
+	public List<String> getAmigos() {
 		return amigos;
 	}
 
-	public void setAmigos(String[] amigos) {
+	public void setAmigos(List<String> amigos) {
 		this.amigos = amigos;
 	}
 
-	public String[] getAmigosPendientes() {
+	public List<String> getAmigosPendientes() {
 		return amigosPendientes;
 	}
 
-	public void setAmigosPendientes(String[] amigosPendientes) {
+	public void setAmigosPendientes(List<String> amigosPendientes) {
 		this.amigosPendientes = amigosPendientes;
 	}
 
-	public String[] getFotos() {
+	public List<String> getFotos() {
 		return fotos;
 	}
 
-	public void setFotos(String[] fotos) {
+	public void setFotos(List<String> fotos) {
 		this.fotos = fotos;
 	}
 
@@ -177,11 +178,9 @@ public class Usuario {
 				+ ", trabajo=" + trabajo + ", educacionInferior="
 				+ educacionInferior + ", educacionSuperior="
 				+ educacionSuperior + ", carrera=" + carrera
-				+ ", fechaCumpleaños=" + fechaCumpleanios + ", ciudad=" + ciudad
-				+ ", amigos=" + Arrays.toString(amigos) + ", amigosPendientes="
-				+ Arrays.toString(amigosPendientes) + ", fotos="
-				+ Arrays.toString(fotos) + "]";
+				+ ", fechaCumpleanios=" + fechaCumpleanios + ", ciudad="
+				+ ciudad + ", amigos=" + amigos + ", amigosPendientes="
+				+ amigosPendientes + ", fotos=" + fotos + "]";
 	}
-
 	
 }
