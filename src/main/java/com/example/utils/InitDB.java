@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.example.controllers.UsuarioController;
-import com.example.dao.TablonDAO;
 import com.example.dao.UsuarioDAO;
 import com.example.models.Tablon;
 import com.example.models.Usuario;
