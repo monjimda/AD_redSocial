@@ -68,7 +68,7 @@ public class AmigosController {
 			dao.updateUsuario(user2);
 			
 			amigos = user.getAmigos();
-			amigos.add(idUsuario);
+			amigos.add(SecurityContextHolder.getContext().getAuthentication().getName());
 			user.setAmigos(amigos);
 			dao.updateUsuario(user);
 			
