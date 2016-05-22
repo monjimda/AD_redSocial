@@ -22,6 +22,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.dao.UsuarioDAO;
+import com.example.models.Tablon;
 import com.example.models.Usuario;
 import com.example.utils.Config;
 
@@ -78,6 +79,10 @@ public class UsuarioController {
 		fotos.add("perfil");
 		resource.setFotos(fotos);
 		resource.setPassword(this.makePasswordHash(resource.getPassword(), this.generateSalting()));
+		
+		
+		Tablon raiz = new Tablon("Tablon de "+resource.getNick(),null,resource.getNick());
+		resource.setTablon(raiz);
 		dao.createUsuario(resource);
 		return resource;
 	}

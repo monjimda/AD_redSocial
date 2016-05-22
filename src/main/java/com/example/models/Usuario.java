@@ -28,6 +28,15 @@ public class Usuario {
 	private List<String> amigos;
 	private List<String> amigosPendientes;
 	private List<String> fotos;
+	private Tablon tablon;
+
+	public Tablon getTablon() {
+		return tablon;
+	}
+
+	public void setTablon(Tablon tablon) {
+		this.tablon = tablon;
+	}
 
 	public Usuario() {
 		amigos = new ArrayList<String>();
@@ -187,7 +196,10 @@ public class Usuario {
 				+ educacionSuperior + ", carrera=" + carrera
 				+ ", fechaCumpleanios=" + fechaCumpleanios + ", ciudad="
 				+ ciudad + ", amigos=" + amigos + ", amigosPendientes="
-				+ amigosPendientes + ", fotos=" + fotos + "]";
+				+ amigosPendientes + ", fotos=" + fotos + ", tablon=" + tablon
+				+ "]";
 	}
+
+	
 	
 }

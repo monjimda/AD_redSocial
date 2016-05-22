@@ -6,9 +6,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.example.controllers.UsuarioController;
-import com.example.dao.TecnologiaDAO;
+import com.example.dao.TablonDAO;
 import com.example.dao.UsuarioDAO;
-import com.example.models.Tecnologia;
+import com.example.models.Tablon;
 import com.example.models.Usuario;
 
 
@@ -18,21 +18,21 @@ public class InitDB {
 
 	public static void loadTecnologias() throws Exception {
 		
-		// este metodo es neceasario para preparar la base de datos frente a la gfestion de tecnologias
-		// inserta una tecnologia raiz a partir de la cual trabajara la capa controladora
-		TecnologiaDAO tecnologiaDAO = TecnologiaDAO.getInstance();
-		if(tecnologiaDAO.getTecnologia("Tecnologias")== null){
-			
-			List<Tecnologia> lista = new ArrayList<Tecnologia>();
-			Tecnologia t = new Tecnologia("hojaInvalida1",null,false,null,"hojaInvalida");
-			lista.add(t);
-			t = new Tecnologia("hojaInvalida2",null,false,null,"hojaInvalida");
-			lista.add(t);
-			t = new Tecnologia("hojaInvalida3",null,false,null,"hojaInvalida");
-			lista.add(t);
-			Tecnologia raiz = new Tecnologia("Tecnologias",lista,false,null,"raiz");
-			tecnologiaDAO.insertTecnologia(raiz);	
-		}	
+//		// este metodo es neceasario para preparar la base de datos frente a la gfestion de tecnologias
+//		// inserta una tecnologia raiz a partir de la cual trabajara la capa controladora
+//		TablonDAO tecnologiaDAO = TablonDAO.getInstance();
+//		if(tecnologiaDAO.getTecnologia("Tecnologias")== null){
+//			
+//			List<Tablon> lista = new ArrayList<Tablon>();
+//			Tablon t = new Tablon("hojaInvalida1",null,false,null,"hojaInvalida");
+//			lista.add(t);
+//			t = new Tablon("hojaInvalida2",null,false,null,"hojaInvalida");
+//			lista.add(t);
+//			t = new Tablon("hojaInvalida3",null,false,null,"hojaInvalida");
+//			lista.add(t);
+//			Tablon raiz = new Tablon("Tecnologias",lista,false,null,"raiz");
+//			tecnologiaDAO.insertTecnologia(raiz);	
+//		}	
 	}
 
 	public static void loadUsers() throws Exception {
