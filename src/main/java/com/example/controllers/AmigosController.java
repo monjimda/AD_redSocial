@@ -100,11 +100,30 @@ public class AmigosController {
 			return id;
 		}
 
-		public Usuario getAmigo(String idUsuario) {
+		public Usuario getAmigo(String idUsuario) throws IOException {
 			
 			Usuario user = dao.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
 			if((user.getAmigos()!=null && user.getAmigos().contains(idUsuario)) || user.getRole().equals("ROLE_ADMIN")){
-			return dao.getUser(idUsuario);
+			
+				Usuario modListImagenes = dao.getUser(idUsuario);
+				List<String> imagenes = modListImagenes.getFotos();
+				List<String> respuestaImagenes = new ArrayList<String>();
+				Iterator<String> iteradorImagenes = imagenes.iterator();
+				while(iteradorImagenes.hasNext()){
+					String  respuesta = iteradorImagenes.next();
+					respuestaImagenes.add(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+modListImagenes.getNick()+"/" + respuesta + ".png");
+					/*
+					byte[] imagenByte = null;
+					try{
+					imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+imagenes[i]+".png"));
+					}catch(Exception e){
+					imagenByte = Files.readAllBytes(Paths.get(Config.getInstance().getProperty(Config.PATH_IMAGENES)+"error.png"));	
+					}
+					imagenes[i] = DatatypeConverter.printBase64Binary(imagenByte);*/
+					//imagenes[i] = Config.getInstance().getProperty(Config.PATH_IMAGENES)+"/"+SecurityContextHolder.getContext().getAuthentication().getName()+"/" + imagenes[i] + ".png";
+				}
+				modListImagenes.setFotos(respuestaImagenes);
+				return modListImagenes;
 			}
 			return null;
 		}
