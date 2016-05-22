@@ -48,13 +48,12 @@ public class TablonService extends Service{
 		return Response.status(status).entity(out).build();
 	}
 
-	@PUT
-	@Path("/{propietario}")
+	@DELETE
 	@ApiOperation(value = "Devuelve una tecnologia por su nombre", notes = "Devuelve una tecnologia por su nombre")
-	public Response getTecnologia(@PathParam("propietario") String propietario, Tablon tablon) {
+	public Response deleteComentario(Map<String,Object> resource) {
 		try {
 			TablonController tecnologiaController = TablonController.getInstance();
-			out = tecnologiaController.updateTablon(propietario,tablon);
+			out = tecnologiaController.deleteComentario(resource);
 			log.info("Get Tecnologia by key: Operation successful");
 		} catch (Exception e) {
 			status = Response.Status.BAD_REQUEST;
@@ -62,6 +61,20 @@ public class TablonService extends Service{
 			out = new Message(e.getMessage());
 		}
 		return Response.status(status).entity(out).build();
-	}	
+	}
+	@POST
+	@ApiOperation(value = "Devuelve una tecnologia por su nombre", notes = "Devuelve una tecnologia por su nombre")
+	public Response postComentario(Map<String,String> resource) {
+		try {
+			TablonController tecnologiaController = TablonController.getInstance();
+			out = tecnologiaController.createComentario(resource);
+			log.info("Get Tecnologia by key: Operation successful");
+		} catch (Exception e) {
+			status = Response.Status.BAD_REQUEST;
+			log.error("Error detected: ", e);
+			out = new Message(e.getMessage());
+		}
+		return Response.status(status).entity(out).build();
+	}
 	
 }

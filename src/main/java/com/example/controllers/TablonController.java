@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import com.example.dao.UsuarioDAO;
 import com.example.models.Tablon;
 import com.example.models.Usuario;
@@ -33,11 +34,64 @@ public class TablonController {
 		return user.getTablon();
 	}
 
-	public Object updateTablon(String propietario, Tablon tablon) {
+	public Object createComentario(Map<String, String> resource) {
 		
-		Usuario user = dao.getUser(propietario);
-		user.setTablon(tablon);
+		Tablon comentario = new Tablon(resource.get("contenido") ,null, resource.get("propietario"));
+		Usuario user = dao.getUser(resource.get("duenio"));
+		if(user.getTablon().get_id().equals(resource.get("idPadre"))){
+			user.getTablon().getNodosHijos().add(comentario);
+		}else{
+		user.setTablon(colocar(comentario, user.getTablon(), resource.get("idPadre")));
+		}
 		dao.updateUsuario(user);
 		return user.getTablon();
+	}
+	
+	private Tablon colocar(Tablon comentario, Tablon tablon, String idPadre) {
+		
+		Iterator<Tablon> iterador = tablon.getNodosHijos().iterator();
+		while(iterador.hasNext()){
+			
+			Tablon padre = iterador.next();
+			if(padre.get_id().equals(idPadre)){
+				
+				padre.getNodosHijos().add(comentario);
+			}else{
+				colocar(comentario, padre , idPadre);
+			}
+			
+		}
+		
+		return tablon;
+		
+	}
+
+	
+
+	public Object deleteComentario(Map<String, Object> resource) {
+		
+		Usuario user = dao.getUser((String)resource.get("duenio"));
+		user.setTablon(borrar((Tablon)user.getTablon(), (String)resource.get("id")));
+		dao.updateUsuario(user);
+		return user.getTablon();
+	}
+	
+	private Tablon borrar(Tablon tablon, String id) {
+		
+		Iterator<Tablon> iterador = tablon.getNodosHijos().iterator();
+		while(iterador.hasNext()){
+			
+			Tablon actual = iterador.next();
+			if(actual.get_id().equals(id)){
+				
+				tablon.getNodosHijos().remove(actual);
+			}else{
+				borrar( actual , id);
+			}
+			
+		}
+		
+		return tablon;
+		
 	}
 }
