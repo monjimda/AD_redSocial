@@ -34,8 +34,9 @@ public class TablonService extends Service{
 	
 	
 	@GET
+	@Path("/{propietario}")
 	@ApiOperation(value = "arbol tablon", notes = "Devuelve todo el arbol de tablon")
-	public Response getTablon(String propietario) {
+	public Response getTablon(@PathParam("propietario")String propietario) {
 		try {
 			TablonController tecnologiaController = TablonController.getInstance();
 			out = tecnologiaController.getTablon(propietario);
