@@ -1,5 +1,6 @@
 package com.example.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,11 @@ public class Tablon {
 		
 		super();
 		this.contenido = contenido;
-		this.nodosHijos = nodosHijos;
+		if(nodosHijos==null){
+			this.nodosHijos = new ArrayList<Tablon>();
+		}else{
+			this.nodosHijos = nodosHijos;
+		}
 		this.propietario = propietario;
 		
 	}

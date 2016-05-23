@@ -43,7 +43,7 @@ public class TablonController {
 
 	public Object createComentario(Map<String, String> resource) {
 		
-		Tablon comentario = new Tablon(resource.get("contenido") ,null, resource.get("propietario"));
+		Tablon comentario = new Tablon(resource.get("contenido") ,new ArrayList<Tablon>(), resource.get("propietario"));
 		comentario = tablonDAO.createTablon(comentario);
 		Usuario user = dao.getUser(resource.get("duenio"));
 		if(user.getTablon().get_id().equals(resource.get("idPadre"))){
