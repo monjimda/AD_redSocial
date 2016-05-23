@@ -19,11 +19,13 @@ import de.undercouch.bson4jackson.types.ObjectId;
 public class TablonController {
 	
 	private static UsuarioDAO dao;
+	private TablonDAO tablonDAO;
 	private static TablonController singleton;
 	private static boolean encontrado = false;
 
 	private TablonController() throws Exception {
 		dao = UsuarioDAO.getInstance();
+		tablonDAO = TablonDAO.getInstance();
 	}
 
 	public static TablonController getInstance() throws Exception {
@@ -42,6 +44,7 @@ public class TablonController {
 	public Object createComentario(Map<String, String> resource) {
 		
 		Tablon comentario = new Tablon(resource.get("contenido") ,null, resource.get("propietario"));
+		comentario = tablonDAO.createTablon(comentario);
 		Usuario user = dao.getUser(resource.get("duenio"));
 		if(user.getTablon().get_id().equals(resource.get("idPadre"))){
 			user.getTablon().getNodosHijos().add(comentario);
