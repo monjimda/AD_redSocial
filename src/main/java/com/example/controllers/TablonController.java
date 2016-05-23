@@ -92,7 +92,8 @@ public class TablonController {
 			Tablon actual = iterador.next();
 			if(actual.get_id().equals(id)){
 				
-				tablon.getNodosHijos().remove(actual);
+				iterador.remove();
+				//tablon.getNodosHijos().remove(actual);
 			}else{
 				borrar( actual , id);
 			}
