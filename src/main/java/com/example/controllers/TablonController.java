@@ -2,13 +2,18 @@ package com.example.controllers;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.example.dao.TablonDAO;
 import com.example.dao.UsuarioDAO;
 import com.example.models.Tablon;
 import com.example.models.Usuario;
+
+import de.undercouch.bson4jackson.types.ObjectId;
 
 
 public class TablonController {
@@ -93,5 +98,18 @@ public class TablonController {
 		
 		return tablon;
 		
+	}
+	public static void main(String[] args) throws Exception {
+		
+		Calendar fecha = Calendar.getInstance();
+		Date actual = new Date(fecha.getTimeInMillis());
+		TablonDAO dao = TablonDAO.getInstance();
+		Tablon prueba = new Tablon("tablon prueba",null,"pepito");
+		System.out.println(prueba);
+		System.out.println(dao.createTablon(prueba));
+		
+		
+//		ObjectId pru = new ObjectId();
+//		System.out.println(pru.toString());
 	}
 }

@@ -25,6 +25,7 @@ public class Tablon {
 	}
 	public Tablon(String contenido,List<Tablon> nodosHijos,String propietario){
 		
+		super();
 		this.contenido = contenido;
 		this.nodosHijos = nodosHijos;
 		this.propietario = propietario;

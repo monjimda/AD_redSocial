@@ -21,6 +21,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.example.dao.TablonDAO;
 import com.example.dao.UsuarioDAO;
 import com.example.models.Tablon;
 import com.example.models.Usuario;
@@ -30,10 +31,12 @@ public class UsuarioController {
 
 	// Singleton instances
 	private UsuarioDAO dao;
+	private TablonDAO tablonDAO;
 	private static UsuarioController singleton;
 
 	private UsuarioController() throws Exception {
 		dao = UsuarioDAO.getInstance();
+		tablonDAO = TablonDAO.getInstance();
 	}
 
 	public static UsuarioController getInstance() throws Exception {
@@ -82,8 +85,10 @@ public class UsuarioController {
 		
 		
 		Tablon raiz = new Tablon("Tablon de "+resource.getNick(),null,resource.getNick());
-		resource.setTablon(raiz);
+		Tablon raizWhitId = tablonDAO.createTablon(raiz);
+		resource.setTablon(raizWhitId);
 		dao.createUsuario(resource);
+		System.out.println(resource);
 		return resource;
 	}
 	
@@ -257,5 +262,24 @@ public class UsuarioController {
 			list.add(i.next());
 		}
 		return list;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		UsuarioController clase = new UsuarioController();
+		
+		Usuario aux = new Usuario();
+		System.out.println(aux);
+		aux.setNick("pepito");
+		clase.createUsuario(aux);
+		Iterator<Usuario> iterador = clase.getUsuarios().iterator();
+		while(iterador.hasNext()){
+			Usuario actual = iterador.next();
+			System.out.println(actual);
+		}
+		
+		
+		
+		
 	}
 }
